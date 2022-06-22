@@ -17,3 +17,10 @@ def calcular_estatisticas(resultados):
 def imprimir_estatisticas(resultados):
     media, desvio, mini, maxi = calcular_estatisticas(resultados)
     print("Resultados: %.2f +- %.2f, min: %.2f, max: %.2f" % (media, desvio, mini, maxi))
+    
+def rejeitar_hip_nula(amostra1, amostra2, alpha=0.05):
+    media_amostral1, desvio_padrao_amostral1, _, _ = calcular_estatisticas(amostra1)
+    media_amostral2, desvio_padrao_amostral2, _, _ = calcular_estatisticas(amostra2)
+    
+    _, pvalor = ttest_ind_from_stats(media_amostral1, desvio_padrao_amostral1, len(amostra1), media_amostral2, desvio_padrao_amostral2, len(amostra2))
+    return (pvalor <= alpha, pvalor)
